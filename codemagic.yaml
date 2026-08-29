@@ -45,5 +45,5 @@ workflows:
       - build/ios/ipa/*.ipa
     publishing:
       app_store_connect:
-        auth: integrations
+        auth: integration
         submit_to_testflight: true
