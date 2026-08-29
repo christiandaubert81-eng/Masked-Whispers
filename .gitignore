@@ -1,0 +1,5 @@
+node_modules/
+ios/App/build/
+ios/DerivedData/
+*.ipa
+.DS_Store

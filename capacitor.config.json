@@ -1,0 +1,22 @@
+{
+  "appId": "com.maskedwhispers.app",
+  "appName": "Masked Whispers",
+  "webDir": "www",
+  "server": {
+    "url": "https://maskedwhispers.com",
+    "cleartext": false,
+    "androidScheme": "https",
+    "allowNavigation": [
+      "*.maskedwhispers.com",
+      "maskedwhispers.com",
+      "*.paypal.com",
+      "*.paypalobjects.com",
+      "play.google.com",
+      "*.google.com",
+      "*.gstatic.com"
+    ]
+  },
+  "android": {
+    "minWebViewVersion": 60
+  }
+}

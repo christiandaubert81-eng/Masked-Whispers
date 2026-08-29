@@ -1,0 +1,49 @@
+# Masked Whispers — iOS App Store build (Codemagic)
+# ─────────────────────────────────────────────────
+# One-time setup in Codemagic (https://codemagic.io):
+#  1. Create a (free) account, add this whispers-capacitor folder as a project
+#     (zip upload or a git repo).
+#  2. Teams → Personal team → Integrations → App Store Connect → add an
+#     App Store Connect API key (create it in App Store Connect → Users and
+#     Access → Integrations → App Store Connect API; role: App Manager) and
+#     name it exactly:  MW ASC API Key
+#  3. Start the ios-release workflow. It builds, signs (certificates are
+#     created/fetched automatically from the API key) and uploads the build
+#     to App Store Connect / TestFlight.
+workflows:
+  ios-release:
+    name: iOS App Store release build
+    instance_type: mac_mini_m2
+    max_build_duration: 60
+    integrations:
+      app_store_connect: MW ASC API Key
+    environment:
+      xcode: latest
+      node: 22
+      vars:
+        BUNDLE_ID: com.maskedwhispers.app   # MUST match the App Store Connect app record's bundle ID
+        XCODE_SCHEME: App
+    scripts:
+      - name: Install npm dependencies
+        script: |
+          npm ci || npm install
+      - name: Sync web assets into the iOS shell
+        script: |
+          npx cap sync ios
+      - name: Set up code signing
+        script: |
+          keychain initialize
+          app-store-connect fetch-signing-files "$BUNDLE_ID" --type IOS_APP_STORE --create
+          keychain add-certificates
+          xcode-project use-profiles
+      - name: Build signed IPA
+        script: |
+          xcode-project build-ipa \
+            --project ios/App/App.xcodeproj \
+            --scheme "$XCODE_SCHEME"
+    artifacts:
+      - build/ios/ipa/*.ipa
+    publishing:
+      app_store_connect:
+        auth: integrations
+        submit_to_testflight: true
