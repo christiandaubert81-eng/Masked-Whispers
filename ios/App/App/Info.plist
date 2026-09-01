@@ -30,9 +30,17 @@
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>
 	<string>Main</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Masked Whispers uses the camera for selfie verification, profile photos and video calls with your matches.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Masked Whispers uses the microphone for voice and video calls with your matches.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Masked Whispers needs access to your photos so you can choose profile pictures to upload.</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Masked Whispers can save photos you receive to your photo library.</string>
 	<key>UIRequiredDeviceCapabilities</key>
 	<array>
-		<string>armv7</string>
+		<string>arm64</string>
 	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
